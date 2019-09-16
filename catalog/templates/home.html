@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Biblioteca Local --> Home</h1>
+
+	<p>Bienvenidos a la <em>Biblioteca Local</em>, un sitio web muy básico de Django desarrollado como ejemplo tutorial en la Red de Desarrolladores de Mozilla.</p>
+
+	<h2>Contenido Dinamico</h2>
+
+	<p>La biblioteca tiene los siguientes registros:</p>
+	<ul>
+		<li><strong>Libros:</strong> {{ num_libros }}</li>
+		<li><strong>Generos:</strong> {{ num_generos }}</li>
+		<li><strong>Copias:</strong> {{ num_copias }}</li>
+		<li><strong>Copias disponibles:</strong> {{ num_copias_disponibles }}</li>
+		<li><strong>Autores:</strong> {{ num_autores }}</li>
+	</ul>
+	<p>Han visitado esta pagina {{ num_visitas }} veces.</p>
+{% endblock %}

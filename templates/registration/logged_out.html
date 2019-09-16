@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="text-muted">Sesión terminada!</h3>
+<p>Gracias por el tiempo que ha dedicado hoy al sitio web.</p>  
+
+<a href="{% url 'login'%}">Iniciar sesión nuevamente.</a>
+{% endblock %}

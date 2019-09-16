@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<h2>{{ autor.nombre }} {{ autor.apellido }}</h2>
+
+	<p><strong>Fecha Nacimiento:</strong> {{ autor.fecha_nacimiento }}</p>
+	<p><strong>Fecha Fallecimiento:</strong> {{ autor.fecha_fallecimiento }}</p>
+
+	<div style="margin-left:20px;margin-top:20px">
+		<h4>Libros escritos:</h4>
+
+		<!-- El método _set() es "automágicamente" creado por Django para devolver el conjunto de registros de autorCopia asociado con un autor en particular -->
+		{% for libro in autor.libro_set.all %}
+			<hr>
+			<p><strong>Titulo:</strong> <a href="{{ libro.get_absolute_url }}">{{ libro.titulo }}</a>, <em>{{ libro.resumen }}.</em></p>
+		{% endfor %}
+	</div>
+{% endblock %}

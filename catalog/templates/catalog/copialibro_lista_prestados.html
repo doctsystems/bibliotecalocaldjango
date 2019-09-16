@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Libros Prestados</h1>
+
+    {% if librocopia_list %}
+    <ul>
+
+      {% for librocopia in librocopia_list %} 
+      <li>
+      	<p><a href="{% url 'libro-detalle' librocopia.libro.pk %}">{{librocopia.libro.titulo}}</a></p>
+        <p class="{% if librocopia.is_atrasado %}text-danger{% endif %}">Fecha de devolucion: {{ librocopia.fecha_devolucion }}</p>
+  		  <p>Prestado a: <strong>{{ librocopia.prestatario }}</strong></p> 
+        {% if perms.catalog.puede_marcar_devuelto %}
+          <p><a href="{% url 'renovar-libro-bibliotecario' librocopia.id %}">Renovar fecha de devolucion?</a></p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>No existen libros prestados.</p>
+    {% endif %}       
+{% endblock %}

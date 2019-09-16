@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<h1>Titulo: {{ libro.titulo }}</h1>
+
+	<p><strong>Autor:</strong> <a href="{% url 'autor-detalle' libro.autor.pk %}">{{ libro.autor }}</a></p>
+	<p><strong>Resumen:</strong> {{ libro.resumen }}</p>
+	<p><strong>ISBN:</strong> {{ libro.isbn }}</p> 
+	<p><strong>Idioma:</strong> {{ libro.idioma }}</p>  
+	<p><strong>Genero:</strong> 
+		{% for genero in libro.genero.all %} 
+			{{ genero }}
+			{% if not forloop.last %}, 
+			{% endif %}
+		{% endfor %}
+	</p>  
+
+	<div style="margin-left:20px;margin-top:20px">
+		<h4>Copias</h4>
+
+		<!-- El método _set() es "automágicamente" creado por Django para devolver el conjunto de registros de LibroCopia asociado con un Libro en particular -->
+		{% for copia in libro.librocopia_set.all %}
+			<hr>
+			<p class="
+				{% if copia.status == 'a' %}text-success
+				{% elif copia.status == 'm' %}text-danger
+				{% else %}text-warning{% endif %}">
+				{{ copia.get_status_display }}
+			</p>
+			{% if copia.status != 'a' %}
+				<p><strong>Fecha de devolucion:</strong> {{copia.fecha_devolucion}}</p>
+			{% endif %}
+			<p><strong>Imprenta:</strong> {{copia.imprenta}}</p>
+			<p class="text-muted"><strong>Id:</strong> {{copia.id}}</p>
+		{% endfor %}
+	</div>
+{% endblock %}
