@@ -129,6 +129,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # La URL a utilizar cuando se hace referencia a archivos estáticos (desde donde se servirán)
 STATIC_URL = '/static/'
 
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (  
+    os.path.join(BASE_DIR, 'static'),
+)
+
 
 # Redireccionar a la pagina de inicio después de iniciar sesión 
 # (el redireccionamiento predeterminado es a /accounts/profile/)
