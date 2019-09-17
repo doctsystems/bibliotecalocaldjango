@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware', # Gestiona sesiones entre solicitudes
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -122,10 +123,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# La ruta absoluta al directorio donde collectstatic recopilará archivos estáticos para su implementación.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# La URL a utilizar cuando se hace referencia a archivos estáticos (desde donde se servirán)
 STATIC_URL = '/static/'
+
 
 # Redireccionar a la pagina de inicio después de iniciar sesión 
 # (el redireccionamiento predeterminado es a /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# Heroku: Update database configuration from $DATABASE_URL.
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
